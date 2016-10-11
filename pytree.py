@@ -13,16 +13,6 @@ lastindir = '└── '
 newdir = '├── '
 
 
-def printDir(path, spacing, flaglast):
-    if isdir(path):
-        if flaglast:
-            spacing = spacing + spaces
-            tree(path, spacing, flaglast=False)
-        else:
-            spacing = spacing + indir
-            tree(path, spacing, flaglast=False)
-
-
 def tree(dir, spacing, flaglast=False):
     files = []
     files = [files for files in listdir(dir) if not files.startswith('.')]
@@ -35,7 +25,13 @@ def tree(dir, spacing, flaglast=False):
         else:
             flaglast = False
             print(spacing + newdir + filename)
-        printDir(path, spacing, flaglast)
+        if isdir(path):
+            if flaglast:
+                spacing = spacing + spaces
+                tree(path, spacing, flaglast=False)
+            else:
+                spacing = spacing + indir
+                tree(path, spacing, flaglast=False)
     spacing = spacing + spaces
 
 
