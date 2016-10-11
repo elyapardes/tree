@@ -44,7 +44,7 @@ def fileTrack(path):
         num_files += num_file
     print("%s directories, %s files" % (num_dir, num_files))
 
-    
+
 def count_file(files, num_file):
     total_file = []
     for f in files:
