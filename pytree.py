@@ -1,16 +1,26 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import string
-import sys
 import os
-import re
 from os import listdir, sep, walk
 from os.path import basename, isdir
+import re
+import string
+import sys
 
 spaces = '    '
 indir = '│   '
 lastindir = '└── '
 newdir = '├── '
+
+
+def printDir(path, spacing, flaglast):
+    if isdir(path):
+        if flaglast:
+            spacing = spacing + spaces
+            tree(path, spacing, flaglast=False)
+        else:
+            spacing = spacing + indir
+            tree(path, spacing, flaglast=False)
 
 
 def tree(dir, spacing, flaglast=False):
@@ -25,13 +35,7 @@ def tree(dir, spacing, flaglast=False):
         else:
             flaglast = False
             print(spacing + newdir + filename)
-        if isdir(path):
-            if flaglast:
-                spacing = spacing + spaces
-                tree(path, spacing, flaglast=False)
-            else:
-                spacing = spacing + indir
-                tree(path, spacing, flaglast=False)
+        printDir(path, spacing, flaglast)
     spacing = spacing + spaces
 
 
