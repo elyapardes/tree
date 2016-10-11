@@ -8,30 +8,30 @@ from os import listdir, sep, walk
 from os.path import basename, isdir
 
 
-def printDir(path, padding, isLast):
+def printDir(path, spacing, flaglast):
     if isdir(path):
-        if isLast:
-            padding = padding + '    '
-            tree(path, padding, isLast=False)
+        if flaglast:
+            spacing = spacing + '    '
+            tree(path, spacing, flaglast=False)
         else:
-            padding = padding + '│   '
-            tree(path, padding, isLast=False)
+            spacing = spacing + '│   '
+            tree(path, spacing, flaglast=False)
 
 
-def tree(dir, padding, isLast=False):
+def tree(dir, spacing, flaglast=False):
     files = []
     files = [files for files in listdir(dir) if not files.startswith('.')]
     allfiles = sorted(files, key=lambda x: x.lower())
     for i, filename in enumerate(allfiles):
         path = dir + sep + filename
         if (i == len(files) - 1):
-            isLast = True
-            print(padding + '└── ' + filename)
+            flaglast = True
+            print(spacing + '└── ' + filename)
         else:
-            isLast = False
-            print(padding + '├── ' + filename)
-        printDir(path, padding, isLast)
-    padding = padding + '    '
+            flaglast = False
+            print(spacing + '├── ' + filename)
+        printDir(path, spacing, flaglast)
+    spacing = spacing + '    '
 
 
 def fileTrack(path):
@@ -44,6 +44,7 @@ def fileTrack(path):
         num_files += num_file
     print("%s directories, %s files" % (num_dir, num_files))
 
+    
 def count_file(files, num_file):
     total_file = []
     for f in files:
@@ -58,13 +59,13 @@ if __name__ == '__main__':
     if len(sys.argv) == 1:
         print('.')
         path = os.getcwd()
-        no_files = tree(path, '', isLast=False)
+        no_files = tree(path, '', flaglast=False)
         print('')
         fileTrack(path)
     elif len(sys.argv) == 2:
         print(sys.argv[1])
         path = sys.argv[1]
-        no_files = tree(path, '', isLast=False)
+        no_files = tree(path, '', flaglast=False)
         print('')
         fileTrack(path)
     else:
