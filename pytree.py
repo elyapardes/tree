@@ -1,16 +1,21 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import string
+import sys
 import os
+import re
 from os import listdir, sep, walk
 from os.path import basename, isdir
-import re
-import sys
-import string
 
-spaces = '    '
-indir = '│   '
-lastofdir = '└── '
-newdir = '├── '
+
+def printDir(path, spacing, flaglast):
+    if isdir(path):
+        if flaglast:
+            spacing = spacing + '    '
+            tree(path, spacing, flaglast=False)
+        else:
+            spacing = spacing + '│   '
+            tree(path, spacing, flaglast=False)
 
 
 def tree(dir, spacing, flaglast=False):
@@ -21,18 +26,12 @@ def tree(dir, spacing, flaglast=False):
         path = dir + sep + filename
         if (i == len(files) - 1):
             flaglast = True
-            print(spacing + lastofdir + filename)
+            print(spacing + '└── ' + filename)
         else:
             flaglast = False
-            print(spacing + newdir + filename)
-        if isdir(path):
-            if flaglast:
-                spacing = spacing + spaces
-                tree(path, spacing, flaglast=False)
-            else:
-                spacing = spacing + indir
-                tree(path, spacing, flaglast=False)
-    spacing = spacing + spaces
+            print(spacing + '├── ' + filename)
+        printDir(path, spacing, flaglast)
+    spacing = spacing + '    '
 
 
 def fileTrack(path):
@@ -54,7 +53,7 @@ def count_file(files, num_file):
     num_file = len(total_file)
     return num_file
 
-# Code written with the help of lanni
+# Code written with the help of classmates
 
 if __name__ == '__main__':
     if len(sys.argv) == 1:
