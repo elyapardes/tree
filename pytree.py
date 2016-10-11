@@ -35,14 +35,14 @@ def tree(dir, spacing, flaglast=False):
 
 
 def fileTrack(path):
-    num_dir = 0
-    num_files = 0
+    ndir = 0
+    nfiles = 0
     for path, dirs, files in walk(path):
         dirs[:] = [d for d in dirs if not d.startswith('.')]
-        num_dir = num_dir + len(dirs)
-        num_file = count_file(files, num_files)
-        num_files += num_file
-    print("%s directories, %s files" % (num_dir, num_files))
+        ndir = ndir + len(dirs)
+        num_file = count_file(files, nfiles)
+        nfiles += num_file
+    print("%s directories, %s files" % (ndir, nfiles))
 
 
 def count_file(files, num_file):
@@ -68,5 +68,3 @@ if __name__ == '__main__':
         no_files = tree(path, '', flaglast=False)
         print('')
         fileTrack(path)
-    else:
-        print('Please enter with only one path.')
