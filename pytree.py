@@ -7,14 +7,18 @@ import re
 from os import listdir, sep, walk
 from os.path import basename, isdir
 
+spaces = '    '
+indir = '│   '
+lastindir = '└── '
+newdir = '├── '
 
 def printDir(path, spacing, flaglast):
     if isdir(path):
         if flaglast:
-            spacing = spacing + '    '
+            spacing = spacing + spaces
             tree(path, spacing, flaglast=False)
         else:
-            spacing = spacing + '│   '
+            spacing = spacing + indir
             tree(path, spacing, flaglast=False)
 
 
@@ -26,12 +30,12 @@ def tree(dir, spacing, flaglast=False):
         path = dir + sep + filename
         if (i == len(files) - 1):
             flaglast = True
-            print(spacing + '└── ' + filename)
+            print(spacing + lastindir + filename)
         else:
             flaglast = False
-            print(spacing + '├── ' + filename)
+            print(spacing + newdir + filename)
         printDir(path, spacing, flaglast)
-    spacing = spacing + '    '
+    spacing = spacing + spaces
 
 
 def fileTrack(path):
