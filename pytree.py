@@ -12,6 +12,7 @@ indir = '│   '
 lastindir = '└── '
 newdir = '├── '
 
+
 def printDir(path, spacing, flaglast):
     if isdir(path):
         if flaglast:
