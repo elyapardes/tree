@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-import os
-from os import listdir, sep, walk
-from os.path import basename, isdir
-import re
 import string
 import sys
+import os
+import re
+from os import listdir, sep, walk
+from os.path import basename, isdir
+
 
 def printDir(path, padding, isLast):
     if isdir(path):
@@ -20,7 +20,10 @@ def printDir(path, padding, isLast):
 
 def tree(dir, padding, isLast=False):
     files = []
+# Reference: http://stackoverflow.com/questions/7099290/how-to-ignore-hidden-files-using-os-listdir
     files = [files for files in listdir(dir) if not files.startswith('.')]
+# Reference: http://stackoverflow.com/questions/13589560/how-to-sort-list-of-string-without-considering-special-characters-and-with-case
+# allfiles = sorted(files, key=lambda x: re.sub('[^A-Za-z]+', '', x).lower())
     allfiles = sorted(files, key=lambda x: x.lower())
     for i, filename in enumerate(allfiles):
         path = dir + sep + filename
